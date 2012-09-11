@@ -27,7 +27,7 @@
       </ul>
     </script>
     <script type="text/x-handlebars-template" id="step-template">
-        <div id="step-{{ number }}" class="step">
+        <div id="step-{{ number }}" class="step {{#if isCompleted }}step-completed{{/if }}">
             <a name="#{{ slug }}"></a>
             <div class="step-header"><span class="step-number">{{ number }}.)</span> {{ name }}</div>
             <div class="step-body">

@@ -83,16 +83,11 @@ MyApp.addInitializer(function(options){
     });
     
 $(document).ready(function(){
-    var cats = new Steps([
-        new Step ({ name: 'Wet Cat', image_path: 'assets/images/cat2.jpg'}),
-        new Step ({ name: 'Bitey', image_path: 'assets/images/cat1.jpg'}),
-        new Step ({ name: 'Ceiling Cat', image_path: 'assets/images/cat3.jpg'})
-        ]);
+    var cats = new Steps([]);
+        
+    _.each(data.objects, function(stepData){
+        cats.add(new Step (stepData));
+    });
     MyApp.start({ cats: cats });
     
-    cats.add(new Step({ 
-        name: 'Cranky Cat', 
-        image_path: 'assets/images/cat4.jpg', 
-        rank: cats.size() + 1 
-        }));
     });

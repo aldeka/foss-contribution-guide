@@ -44,16 +44,10 @@ Step = Backbone.Model.extend({
 
 Steps = Backbone.Collection.extend({
     model: Step,
-    initialize: function(cats){
-        var rank = 1;
-        var self = this;
-        _.each(cats, function(cat){
-            cat.set('rank', rank);
-            ++ rank;
-            });
+    initialize: function(steps){
         },
-    comparator: function(cat){
-        return cat.get('rank');
+    comparator: function(step){
+        return step.get('number');
         },
         
     });
@@ -61,14 +55,14 @@ Steps = Backbone.Collection.extend({
 StepView = Backbone.Marionette.ItemView.extend({
     template: "#step-template",
     tagName: 'li',
-    className: 'angry_cat',
+    className: 'step',
     events: {}
     });
     
 StepsView = Backbone.Marionette.CompositeView.extend({
     tagName: "div",
-    id: 'angry_cats',
-    className: 'table-striped table-bordered',
+    id: 'steps',
+    className: '',
     template: '#steps-template',
     itemView: StepView,
     
@@ -77,17 +71,17 @@ StepsView = Backbone.Marionette.CompositeView.extend({
     
 MyApp.addInitializer(function(options){
     var stepsView = new StepsView({
-    collection: options.cats
+    collection: options.steps
     });
     MyApp.guideRegion.show(stepsView);
     });
     
 $(document).ready(function(){
-    var cats = new Steps([]);
+    var steps = new Steps([]);
         
     _.each(data.objects, function(stepData){
-        cats.add(new Step (stepData));
+        steps.add(new Step (stepData));
     });
-    MyApp.start({ cats: cats });
+    MyApp.start({ steps: steps });
     
     });

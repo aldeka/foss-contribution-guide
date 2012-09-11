@@ -38,13 +38,21 @@ Step = Backbone.Model.extend({
         description: "Some html",
         hints: [],
         isCompleted: false
-        }
+        },
+    initialize: function() {
+        // this doesn't work
+        // this.slug = this.name.replace(' ','_');
+    }
         
     });
 
 Steps = Backbone.Collection.extend({
     model: Step,
     initialize: function(steps){
+        _.each(steps, function(step){
+            // this doesn't fill it in in the template, whyyyy
+            step.set('slug', step.name.replace(' ','_'));
+            });
         },
     comparator: function(step){
         return step.get('number');
@@ -56,7 +64,15 @@ StepView = Backbone.Marionette.ItemView.extend({
     template: "#step-template",
     tagName: 'li',
     className: 'step',
-    events: {}
+    events: {},
+    render: function() {
+        // Compile the template using Handlebars
+        var stepData = this.model.toJSON();
+        var template = Handlebars.compile( $(this.template).html() );
+        // Load the compiled HTML into the Backbone "el"
+        console.log(stepData);
+        $(this.el).html( template(stepData) );
+        }
     });
     
 StepsView = Backbone.Marionette.CompositeView.extend({

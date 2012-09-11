@@ -26,10 +26,14 @@
       <ul id="steps-list">
       </ul>
     </script>
-    <script type="text/template" id="step-template">
-        <%= number %>
-        <%= name %>
-        <%= description %>
+    <script type="text/x-handlebars-template" id="step-template">
+        <div id="step-{{ number }}" class="step">
+            <a name="#{{ slug }}"></a>
+            <div class="step-header"><span class="step-number">{{ number }}.)</span> {{ name }}</div>
+            <div class="step-body">
+                <div class="step-description">{{ description }}</div>
+            </div>
+        </div>
     </script>
   </body>
 </html>
